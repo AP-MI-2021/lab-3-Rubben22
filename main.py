@@ -79,6 +79,29 @@ def test_get_longest_prime_digits():
     assert get_longest_prime_digits([83, 77, 55, 5]) is False
 
 
+def toate_nr_la_puterea_k(list, k):
+    for i in range(len(list)):
+        ok = False
+        for j in range(list[i]):
+            if j ** k == list[i]:
+                ok = True
+        if not ok:
+            return False
+    return True
+
+
+def get_longest_powers_of_k(list, k):
+    if not toate_nr_la_puterea_k(list, k):
+        return False
+    return True
+
+
+def test_get_longest_powers_of_k():
+    assert get_longest_powers_of_k([4, 36, 25], 2) is True
+    assert get_longest_powers_of_k([27, 125], 3) is True
+    assert get_longest_powers_of_k([16, 18, 27], 2) is False
+
+
 def Citire_lista():
     list = []
     vector = input("dati lista: ")
@@ -92,12 +115,14 @@ def printMenu():
     print("1.Citire date ")
     print("2.Determina cea mai lunga secventa in care numerele sunt prime ")
     print("3.Verifica daca toate numerele sunt formate din cifre prime ")
-    print("4.Iesi ")
+    print("4.Verifica daca toate numerele se pot scrie ca x**k, k citit, x întreg pozitiv ")
+    print("5.Iesi")
 
 
 def main():
     test_get_longest_all_primes()
     test_get_longest_prime_digits()
+    test_get_longest_powers_of_k()
     list = []
     while True:
         printMenu()
@@ -112,6 +137,12 @@ def main():
             else:
                 print("Nu toate numerele sunt formate doar din cifre prime ")
         elif optiune == "4":
+            k = int(input("dati numarul k: "))
+            if get_longest_powers_of_k(list, k):
+                print("Toate se pot scrie ")
+            else:
+                print("NU toate se pot scrie ")
+        elif optiune == "5":
             break
         else:
             print("Optiune invalida! Reincercati ")
